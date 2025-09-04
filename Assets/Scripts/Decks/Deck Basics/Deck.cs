@@ -1,0 +1,57 @@
+using System;
+using System.Linq;
+using UnityEngine;
+using Random = UnityEngine.Random;
+
+namespace Deck
+{
+    public class Deck
+    {
+        public Card[] Cards { get; protected set; }
+
+        public Deck() { }
+        public Deck(Card[] cards)
+        {
+            Cards = cards;
+        }
+
+        public void Shuffle()
+        {
+            int j;
+            for (int i = Cards.Length - 1; i > 0; i--)
+            {
+                j = Random.Range(0, i + 1);
+                (Cards[i], Cards[j]) = (Cards[j], Cards[i]);
+            }
+        }
+
+        public Card[] Deal(int numToDeal)
+        {
+            if (numToDeal > Cards.Length) numToDeal = Cards.Length;
+
+            Card[] dealtCards = new Card[numToDeal];
+            for (int i = 0; i < numToDeal; i++)
+            {
+                dealtCards[i] = Cards[^(i + 1)];
+            }
+            Cards = Cards.GetRange(0, Cards.Length - numToDeal);
+            return dealtCards;
+        }
+
+        public static Deck Standard()
+        {
+            int suitLen = Enum.GetNames(typeof(Suit)).Length;
+            int rankLen = Enum.GetNames(typeof(Rank)).Length;
+            Card[] cards = new Card[suitLen * rankLen];
+            for (int i = 0; i < suitLen; i++)
+            {
+                for (int j = 0; j < rankLen; j++)
+                {
+                    cards[i * rankLen + j] = new Card((Suit)i, (Rank)j);
+                }
+            }
+            return new Deck(cards);
+        }
+    }
+}
+
