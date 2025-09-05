@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class CardDisplayer : MonoBehaviour
+public class CardDisplayer : MonoBehaviour, IDraggable
 {
 	private SpriteRenderer _renderer;
 	[SerializeField] private Card _card;
@@ -29,6 +29,7 @@ public class CardDisplayer : MonoBehaviour
 	{
 		_renderer = GetComponent<SpriteRenderer>();
 		CheckSprite();
+		PointerManager.Instance.AddDraggable(transform, this);
 	}
 
 	private void CheckSprite()
@@ -48,6 +49,17 @@ public class CardDisplayer : MonoBehaviour
 	}
 
 	#region Movements
-
+	public void PointerEnter()
+	{
+		Debug.Log("POINT ENTERED");
+	}
+	public void PointerHold(bool isHolding)
+	{
+		throw new System.NotImplementedException();
+	}
+	public void PointerExit()
+	{
+		Debug.Log("POINT EXITED");
+	}
 	#endregion
 }
