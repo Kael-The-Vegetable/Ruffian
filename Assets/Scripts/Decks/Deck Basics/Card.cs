@@ -1,17 +1,21 @@
+using System;
 using UnityEngine;
 
 namespace CardGames
 {
+	[Serializable]
 	public class Card
 	{
-		public Suit Suit { get; protected set; }
-		public Rank Rank { get; protected set; }
+		[SerializeField] private Suit _suit;
+		public Suit Suit => _suit;
+		[SerializeField] private Rank _rank;
+		public Rank Rank => _rank;
 
 		public Card() { }
 		public Card(Suit suit, Rank rank)
 		{
-			Suit = suit;
-			Rank = rank;
+			_suit = suit;
+			_rank = rank;
 		}
 
 		public override string ToString()

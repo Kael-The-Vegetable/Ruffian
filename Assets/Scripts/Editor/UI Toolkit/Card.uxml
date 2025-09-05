@@ -1,0 +1,7 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.24); padding-top: 10px; padding-bottom: 10px; padding-right: 10px; padding-left: 10px;">
+        <ui:Label text="Card" name="Name" binding-path="name" enable-rich-text="true" style="-unity-text-align: upper-left;" />
+        <ui:EnumField label="Suit" value="Club" type="CardGames.Suit, Assembly-CSharp" name="Suit" tabindex="0" binding-path="_suit" enabled="true" data-source-type="CardGames.Card, Assembly-CSharp" data-source-path="_suit" />
+        <ui:EnumField label="Rank" value="Two" type="CardGames.Rank, Assembly-CSharp" name="Rank" data-source-type="CardGames.Card, Assembly-CSharp" data-source-path="_rank" binding-path="_rank" />
+    </ui:VisualElement>
+</ui:UXML>
