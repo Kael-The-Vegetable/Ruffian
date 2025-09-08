@@ -1,16 +1,15 @@
 using CardGames;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
 public class CardDisplayer : MonoBehaviour, IDraggable
 {
 	private SpriteRenderer _renderer;
+	private IHolder _holder;
+
 	[SerializeField] private Card _card;
 	[SerializeField] private bool _hidden;
 
-	private bool _followingMouse = false;
 
 	public Card Card
 	{
@@ -28,6 +27,7 @@ public class CardDisplayer : MonoBehaviour, IDraggable
 	private void Awake()
 	{
 		_renderer = GetComponent<SpriteRenderer>();
+		_holder = GetComponentInParent<IHolder>();
 		CheckSprite();
 		PointerManager.Instance.AddDraggable(transform, this);
 	}
@@ -51,15 +51,40 @@ public class CardDisplayer : MonoBehaviour, IDraggable
 	#region Movements
 	public void PointerEnter()
 	{
-		Debug.Log("POINT ENTERED");
+		
 	}
 	public void PointerHold(bool isHolding)
 	{
-		throw new System.NotImplementedException();
+		if (isHolding)
+		{
+			InputManager.Instance.Pointer.AddListener(PointerMoved);
+		}
+		else
+		{
+			InputManager.Instance.Pointer.RemoveListener(PointerMoved);
+			IHolder newHolder = PointerManager.Instance.CheckForHolder(transform.position);
+			Debug.Log(newHolder);
+			if (newHolder != null)
+			{
+				if (_holder != null) _holder.Unlink();
+
+				_holder = newHolder;
+				_holder.Link(this);
+			}
+			else
+			{
+				transform.localPosition = Vector3.zero;
+			}
+		}
 	}
 	public void PointerExit()
 	{
-		Debug.Log("POINT EXITED");
+		
+	}
+
+	private void PointerMoved(Vector2 newPos)
+	{
+		transform.position = Camera.main.ScreenToWorldPoint(newPos).Flatten();
 	}
 	#endregion
 }

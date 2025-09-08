@@ -22,6 +22,15 @@ namespace CardGames
 		{
 			return Suit + " " + Rank;
 		}
+
+		public static bool operator ==(Card lhs, Card rhs)
+		{
+			return lhs?.Suit == rhs?.Suit && lhs?.Rank == rhs?.Rank;
+		}
+		public static bool operator !=(Card lhs, Card rhs)
+		{
+			return lhs?.Suit != rhs?.Suit || lhs?.Rank != rhs?.Rank;
+		}
 	}
 }
 
