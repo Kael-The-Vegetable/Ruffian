@@ -1,3 +1,4 @@
+using CardGames;
 using UnityEngine;
 
 public interface IDraggable
@@ -9,7 +10,9 @@ public interface IDraggable
 
 public interface IHolder
 {
-	public bool IsHolding { get; }
+	Suit[] AcceptedSuits { get; }
+	bool IsHolding { get; }
+	bool AcceptsCard(CardDisplayer displayer);
 	void Unlink();
 	void Link(CardDisplayer display);
 }

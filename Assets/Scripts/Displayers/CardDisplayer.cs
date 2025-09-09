@@ -1,5 +1,6 @@
 using CardGames;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class CardDisplayer : MonoBehaviour, IDraggable
@@ -9,7 +10,6 @@ public class CardDisplayer : MonoBehaviour, IDraggable
 
 	[SerializeField] private Card _card;
 	[SerializeField] private bool _hidden;
-
 
 	public Card Card
 	{
@@ -64,7 +64,7 @@ public class CardDisplayer : MonoBehaviour, IDraggable
 			InputManager.Instance.Pointer.RemoveListener(PointerMoved);
 			IHolder newHolder = PointerManager.Instance.CheckForHolder(transform.position);
 			Debug.Log(newHolder);
-			if (newHolder != null)
+			if (newHolder != null && !newHolder.IsHolding && newHolder.AcceptsCard(this))
 			{
 				if (_holder != null) _holder.Unlink();
 

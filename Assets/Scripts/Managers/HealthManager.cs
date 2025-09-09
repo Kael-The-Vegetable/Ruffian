@@ -10,6 +10,7 @@ public class HealthManager : Singleton<HealthManager>
 	[SerializeField] private Image _img;
 	[SerializeField, Range(0, 20)] private int _health = 20;
 	private int _displayedHealth;
+
 	private Coroutine _healthCoroutine;
 	public int Health
 	{
@@ -18,8 +19,8 @@ public class HealthManager : Singleton<HealthManager>
 		set
 		{
 			if (_health == value) return;
-
-			if (_healthCoroutine != null ) StopCoroutine(_healthCoroutine);
+			_health = value;
+			if (_healthCoroutine != null) StopCoroutine(_healthCoroutine);
 			_healthCoroutine = StartCoroutine(HealthTick());
 		}
 	}
