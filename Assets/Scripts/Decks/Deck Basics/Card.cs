@@ -22,7 +22,14 @@ namespace CardGames
 		{
 			return Suit + " " + Rank;
 		}
-
+		public override int GetHashCode()
+		{
+			return 31 * _suit.GetHashCode() + _rank.GetHashCode();
+		}
+		public override bool Equals(object obj)
+		{
+			return obj is Card card && card == this;
+		}
 		public static bool operator ==(Card lhs, Card rhs)
 		{
 			return lhs?.Suit == rhs?.Suit && lhs?.Rank == rhs?.Rank;

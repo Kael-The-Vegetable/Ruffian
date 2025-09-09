@@ -35,7 +35,7 @@ public class InputManager : PersistentSingleton<InputManager>, InputSystemAction
 	}
 	#endregion
 
-	#region UI Actions
+	#region Game Actions
 	public void OnPoint(InputAction.CallbackContext context)
 	{
 		Pointer.Invoke(context.ReadValue<Vector2>());

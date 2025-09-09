@@ -1,10 +1,10 @@
 using CardGames;
-using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardDisplayer : MonoBehaviour, IDraggable
 {
-	private SpriteRenderer _renderer;
+	private Image _img;
 	private IHolder _holder;
 
 	[SerializeField] private Card _card;
@@ -26,7 +26,7 @@ public class CardDisplayer : MonoBehaviour, IDraggable
 
 	private void Awake()
 	{
-		_renderer = GetComponent<SpriteRenderer>();
+		_img = GetComponent<Image>();
 		_holder = GetComponentInParent<IHolder>();
 		CheckSprite();
 		PointerManager.Instance.AddDraggable(transform, this);
@@ -36,15 +36,15 @@ public class CardDisplayer : MonoBehaviour, IDraggable
 	{
 		if (_hidden)
 		{ // not visible
-			_renderer.sprite = CardManager.Instance.SpriteLibrary.Hidden;
+			_img.sprite = CardManager.Instance.SpriteLibrary.Hidden;
 		}
 		else if (_card == null)
 		{ // empty
-			_renderer.sprite = CardManager.Instance.SpriteLibrary.Empty;
+			_img.sprite = CardManager.Instance.SpriteLibrary.Empty;
 		}
 		else
 		{
-			_renderer.sprite = CardManager.Instance.SpriteLibrary.GetSprite(_card);
+			_img.sprite = CardManager.Instance.SpriteLibrary.GetSprite(_card);
 		}
 	}
 
